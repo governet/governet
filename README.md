@@ -1,13 +1,21 @@
 # Governetworks
-Governetworks is a tool to load, process and visualize federal campaign finance data.  It provides structured visualizations out-of-the-box, which are built on an uderlying API and toolset.  API documentation is an issue to be addressed in an upcomming release.
+Governet is a tool to load, process and visualize campaign finance data from the [Federal Election Commission](https://www.fec.gov/).  When you run governet, you get a fully operational application pre-loaded with FEC campagin finance data from the last 8 year, and an API to query that data.  
 
-![alt text](./images/workspace.png "Logo Title Text 1")
+Governet provides structured visualizations built on an uderlying API and toolset which expose the data. Look for API documentation in the next release.
+
+Governet is a work in progress in the very earliest stages.  The currently narrow scope of the API and visualizations will be exapnding in each subsequent release.  The API will be purposefully structured in such a way to provide generic data which can be consumed by a variety of custom and, eventually, off-the-shelf applications.  API documentation is on the roadmap for the next release.
+
+
+Currently, Governet comes pre-loaded with Committee, Candidate and Individual contribution data from 2010 - 2018, and a network graph visualizaing the committees who have contributed to a given candidate.  
+
+When you select a candidate, Governet will display all of the committees who have contributed to that candidate.  It will also show you the candidates that the displayed committees have contributed a major gift toward ($5000 or more).  
+![GovernetVisualization](./images/workspace.png "The application in use")
 
 ## The Data
 All of the data used in Governet is obtained from the Federal Election Comission.  Specifically, the data is downloaded in bulk format from the official [Federal Election Committee FTP server](https://cg-519a459a-0ea3-42c2-b7bc-fa1143481f74.s3-us-gov-west-1.amazonaws.com/bulk-downloads/index.html).  Currently Governet is using candidate (cn), committe (cm), and individual contribution (itpas) detailed data files.  
 
 ## The Application
-A front end web application provides a user interface to an API which querys an underlying database.  The front end is built in React.js.  The back end server is written in Node.js, using the Express framework for the API.  The database is MongoDB.    The application is composed with Docker and Docker Compose.  Some data loading is done in bash scripts.
+Governet is an N-tier web application.  A front end provides a user interface to an API which querys an underlying database.  The front end is built in React.js.  The back end server is written in Node.js, using the Express framework for the API.  The database is MongoDB.  The application is composed with Docker and Docker Compose.  Some data loading is done in bash scripts.
 
 ## Running Governet Locally with Docker Compose
 Before you get started, you'll need [Docker Community Edition](https://docs.docker.com/install/) if you don't already have it.
@@ -26,9 +34,11 @@ The app consists of 3 containers, one which serves the React frontend, one which
 
 Once the above steps are completed, you can view the frontend of the application on localhost port 5000.  Check out the 2016 MA Democract House candidates for some good examples (MA 2016 DEM H), such as Joseph Kennedy.
 
-You can query the API on locahost 8080, try `http://127.0.0.1:8080/candidate?party=DEM&state=MA&year=2016&candOffice=H` for an example.
 
-Note that all of the available data is not loaded in this deployment -- it would be expensive to host all of that data on s3 to provide the local data dumps on each build.  Once this is actually deployed it'll be a different story.  
+## The API
+Once the application is up, you can query the API on locahost 8080. Try `http://127.0.0.1:8080/candidate?party=DEM&state=MA&year=2016&candOffice=H` for an example.  This query will show you each candidate whose party is DEM in the state MA and year 2016 who run for the House.  If you want to see candidates in a different state, party, year or office, simply change the queries in the URL -- for example, modify the candOffice=H to candOffice=S to see all of the Senate candidates.  
+
+Note that all of the available data is not loaded in this deployment -- it would be expensive to host all of that data on s3 to provide the local data dumps on each build.  Functionality to download and load additional data will be added in future releases.
 
 Dan
 d.c.budris@gmail.com
