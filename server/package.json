@@ -1,0 +1,33 @@
+{
+  "name": "governet_v2",
+  "version": "2.0.0",
+  "description": "A tool for visualizine federal election committee data",
+  "main": "serve.js",
+  "dependencies": {
+    "dedupe": "^2.1.0",
+    "express": "^4.16.3",
+    "mongodb": "^3.0.7",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danbudris/governetworks.git"
+  },
+  "keywords": [
+    "FEC",
+    "government",
+    "elections",
+    "bigdata",
+    "node"
+  ],
+  "author": "Dan Budris",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danbudris/governetworks/issues"
+  },
+  "homepage": "https://github.com/danbudris/governetworks#readme"
+}
