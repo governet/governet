@@ -15,7 +15,7 @@ When you select a candidate, Governet will display all of the committees who hav
 All of the data used in Governet is obtained from the Federal Election Comission.  Specifically, the data is downloaded in bulk format from the official [Federal Election Committee FTP server](https://cg-519a459a-0ea3-42c2-b7bc-fa1143481f74.s3-us-gov-west-1.amazonaws.com/bulk-downloads/index.html).  Currently Governet is using candidate (cn), committe (cm), and individual contribution (itpas) detailed data files.  
 
 ## The Application
-Governet is an N-tier web application.  A front end provides a user interface to an API which querys an underlying database.  The front end is built in React.js.  The back end server is written in Node.js, using the Express framework for the API.  The database is MongoDB.  The application is composed with Docker and Docker Compose.  Some data loading is done in bash scripts.
+Governet is an N-tier web application.  A front end provides a user interface to an API which will query the underlying database.  The front end is built in React.js.  The back end server is written in Node.js, using the Express framework for the API.  The database is MongoDB.  The application is composed with Docker and Docker Compose.  Some data loading is done in bash scripts.
 
 ## Running Governet Locally with Docker Compose
 Before you get started, you'll need [Docker Community Edition](https://docs.docker.com/install/) if you don't already have it.
@@ -26,7 +26,7 @@ To run Governet, you'll need to download the source, build the containers with d
 - Build and start the application with docker: `docker-compose up --build`.  This will build and start the frontend, backend and database containers. 
 - Restore the database and build the indexes:  
     `docker exec -it v2_mongodb_1 bash -c 'mongorestore /opt/dump/governet && mongo governet --eval "db.cm.createIndex({CMTE_ID: 1, CAND_ID: 1})" && mongo governet --eval "db.cn.createIndex({CAND_ID: 1})" && mongo governet --eval "db.pas2.createIndex({CAND_ID: 1, CMTE_ID: 1})"'`
-- Connect to the app on port 5000
+- Connect to the app on localhost port 5000 (https://127.0.0.1:5000)
 
 ## Navigating the App
 
@@ -34,9 +34,8 @@ The app consists of 3 containers, one which serves the React frontend, one which
 
 Once the above steps are completed, you can view the frontend of the application on localhost port 5000.  Check out the 2016 MA Democract House candidates for some good examples (MA 2016 DEM H), such as Joseph Kennedy.
 
-
 ## The API
-Once the application is up, you can query the API on locahost 8080. Try `http://127.0.0.1:8080/candidate?party=DEM&state=MA&year=2016&candOffice=H` for an example.  This query will show you each candidate whose party is DEM in the state MA and year 2016 who run for the House.  If you want to see candidates in a different state, party, year or office, simply change the queries in the URL -- for example, modify the candOffice=H to candOffice=S to see all of the Senate candidates.  
+Once the application is up, you can query the API on locahost 8080. Try `http://127.0.0.1:8080/candidate?party=DEM&state=MA&year=2016&candOffice=H` for an example.  This query will show you each candidate whose party is DEM in the state MA and year 2016 who ran for a House seat.  If you want to see candidates in a different state, party, year or office, simply change the queries in the URL -- for example, modify the candOffice=H to candOffice=S to see all of the Senate candidates.  
 
 Note that all of the available data is not loaded in this deployment -- it would be expensive to host all of that data on s3 to provide the local data dumps on each build.  Functionality to download and load additional data will be added in future releases.
 
