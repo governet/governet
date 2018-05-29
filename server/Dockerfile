@@ -6,7 +6,7 @@ RUN apt-get update -y
 WORKDIR /srv
 COPY serve.js .
 COPY package-lock.json .
-copy package.json .
+COPY package.json .
 RUN npm install 
 
 EXPOSE 8080
