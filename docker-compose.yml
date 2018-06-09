@@ -1,7 +1,7 @@
 version: '3'
 services:
   node:
-    build: ./backend/.
+    build: ./server/.
     networks: 
       - governetwork
     ports:
@@ -15,14 +15,13 @@ services:
     networks:
       - governetwork
   frontend:
-    build: ./frontend/.
+    build: ./client/.
     ports:
       - 5000:5000
     networks:
       - governetwork
     depends_on:
       - "mongodb"
-
 networks:
   governetwork:
     driver: bridge
