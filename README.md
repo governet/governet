@@ -1,3 +1,5 @@
+# This Project is Deprecated and Unmaintained, though still interesting!
+
 # Governetworks
 Governet is a tool to load, process and visualize campaign finance data from the [Federal Election Commission](https://www.fec.gov/).  When you run governet, you get a fully operational application pre-loaded with FEC campagin finance data from the last 8 year, and an API to query that data.  
 
